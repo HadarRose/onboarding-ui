@@ -19,7 +19,7 @@ let handleRequest = ((req, res) => {
 
 
     // read file from specified path, and process it with err being the possible error thrown and html being the content read
-    fs.readFile(reqPath, function (err, content){
+    fs.readFile(reqPath, function (err, content){           
         if (err){
             console.error("error reading file at: " + reqPath);
             res.writeHead(404); // change status to error in case of an error. Can write my own error here, if I'd like. 
@@ -33,5 +33,3 @@ let handleRequest = ((req, res) => {
 });
 
 http.createServer(handleRequest).listen(port);
-
-
