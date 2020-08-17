@@ -6,6 +6,11 @@ function getTimeline() {
             document.getElementById("timeline-para").innerHTML = this.responseText;
         } 
     };
+    xhttp.onerror = function(){
+        document.getElementById("timeline-para").innerHTML = "Something went wrong.";
+        console.error(xhttp.error);
+    };
+
     xhttp.open("GET", "http://localhost:8080/api/1.0/twitter/timeline", true);
     xhttp.send();
 }
