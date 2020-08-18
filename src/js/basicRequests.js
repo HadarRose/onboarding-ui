@@ -35,15 +35,12 @@ function getTimeline() {
                     dateSpan.style = "font-size:150%;" // FIXME styling, should probably be removed later
                     div.appendChild(dateSpan);
 
-                    // add message
-                    let messageNode = document.createTextNode(tweet.message);
-                    div.appendChild(messageNode);
-
                     // add div to container
                     let link = document.createElement("a");
                     link.href = 'https://twitter.com/' + tweet.user.twitterHandle+ '/status/' + tweet.id;
                     link.target = "_blank";
-                    link.appendChild(div);
+                    link.innerText = tweet.message;
+                    div.appendChild(link);
 
                     // FIXME styling, to be removed at later labs
                     if(count%2 == 0 ){
@@ -53,7 +50,7 @@ function getTimeline() {
                     }
                     count++;
                     // add link wrapper to container
-                    container.appendChild(link);  
+                    container.appendChild(div);  
                 });
             }
         }
