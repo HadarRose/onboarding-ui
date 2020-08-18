@@ -15,6 +15,8 @@ let handleRequest = ((req, res) => {
     var contentType = 'text/html'; // default content type to HTML 
     if(path.extname(reqPath) == '.js'){
         contentType = 'text/javascript';
+    } else if(path.extname(reqPath) == '.css'){
+        contentType = 'text/css';
     }
 
 

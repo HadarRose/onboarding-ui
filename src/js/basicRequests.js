@@ -43,11 +43,11 @@ function getTimeline() {
                     div.appendChild(link);
 
                     // FIXME styling, to be removed at later labs
-                    if(count%2 == 0 ){
+                    /*if(count%2 == 0 ){
                         div.style="background-color:powderblue;";
                     } else {
                         div.style="background-color:skyblue;";
-                    }
+                    }*/
                     count++;
                     // add link wrapper to container
                     container.appendChild(div);  

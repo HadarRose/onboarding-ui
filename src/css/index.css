@@ -1,0 +1,21 @@
+* {
+    font-family: fantasy;
+}
+
+div.title-div {
+    text-align: center;
+    font-size: 40pt;
+}
+
+div.timeline-container {
+    border-style: solid;
+    border-color: black; /*TODO make it not show up when empty, make it thinner*/
+}
+
+div.timeline-container > div:nth-of-type(odd){
+    background-color: #e8f5fd;
+}
+
+div.timeline-container > div:nth-of-type(even){
+    background-color: #e9e9e9;
+}
