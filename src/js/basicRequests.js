@@ -1,31 +1,43 @@
+const DEFAULT_IMAGE = "http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"; // the default image for twitter
+
 function getTimeline() {
     console.info('Requesting timeline from backend.');
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){ // more on readystates: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState
-        if(this.readyState == XMLHttpRequest.DONE){ // waits for request to be done and successful (status 200)
-            if(this.status != 200){
-                document.getElementById("timeline-container").innerHTML = "Something went wrong.";
-                console.error("Bad response: " + this.status);
+        if(this.readyState == XMLHttpRequest.DONE){ // waits for request to be done
+            // FIXME TEMPORARY test method: disconnect backend/change credentials 
+            if(this.status != 200){ // checks if request was not successful
+                document.getElementById("timeline-container").innerHTML = "Something went wrong, please contact systems administrator.";
+                console.error("Bad response: " + this.status + "\nResponse received: " + this.responseText); 
             } else {
-                // TODO delete the earlier container before doing this
                 let container = document.getElementById("timeline-container");
-                let respArray = JSON.parse(this.responseText); // TODO: handle potential error? 
-                let count = 0; // this counter serves as an index. I'm using this instead of an indexed for-loop because the next lab is CSS and will probably override this styling anyways
+                container.innerHTML = ""; // clear old content
+                let respArray = JSON.parse(this.responseText); // FIXME TEMPORARY test: unfollow WHO and delete tweets to test empty response
+                let count = 0; // FIXME TEMPORARY this counter serves as an index. I'm using this instead of an indexed for-loop because the next lab is CSS and will probably override this styling anyways
                 respArray.forEach(function(tweet) {
                     let div = document.createElement("div");
-                    // add timestamp
-                    let readableDate = new Date(tweet.createdAt * 1000);
-                    let dateNode = document.createTextNode(readableDate);
-                    div.appendChild(dateNode);
-
-                    // add message
-                    let messageNode = document.createTextNode(tweet.message); // TODO: handle potential error?
-                    div.appendChild(messageNode);
 
                     // add image
                     let imageEl = document.createElement("img");
-                    imageEl.src = tweet.user.profileImageUrl;
+                    imageEl.src = DEFAULT_IMAGE; // set image source to default image in case image does not exist
+                    if(tweet.hasOwnProperty('user')){
+                        if(tweet.user.hasOwnProperty('profileImageUrl')){
+                            imageEl.src = tweet.user.profileImageUrl;
+                            //imageEl.src = "bloop"; // FIXME TEMPORARY test: uncomment this to make sure bad image URLs are handled correctly
+                        }
+                    }
                     div.appendChild(imageEl);
+
+                    // add timestamp
+                    let readableDate = new Date(tweet.createdAt * 1000);
+                    let dateSpan = document.createElement("span");
+                    dateSpan.innerHTML = " " + readableDate + " ";
+                    dateSpan.style = "font-size:150%;" // FIXME styling, should probably be removed later
+                    div.appendChild(dateSpan);
+
+                    // add message
+                    let messageNode = document.createTextNode(tweet.message);
+                    div.appendChild(messageNode);
 
                     // add div to container
                     let link = document.createElement("a");
@@ -33,20 +45,29 @@ function getTimeline() {
                     link.target = "_blank";
                     link.appendChild(div);
 
-                    // styling, to be removed at later labs
+                    // FIXME styling, to be removed at later labs
                     if(count%2 == 0 ){
                         div.style="background-color:powderblue;";
+                    } else {
+                        div.style="background-color:skyblue;";
                     }
+                    count++;
+                    // add link wrapper to container
                     container.appendChild(link);  
                 });
             }
         }
     };
-    xhttp.onerror = function(){
-        document.getElementById("timeline-container").innerHTML = "Something went wrong.";
-        console.error(xhttp.error);
+    xhttp.onerror = function(){ 
+        document.getElementById("timeline-container").innerHTML = "Something went wrong, please contact systems administrator.";
+        console.error(xhttp.error); 
     };
-
     xhttp.open("GET", "http://localhost:8080/api/1.0/twitter/timeline", true);
     xhttp.send();
 }
+
+/* Regular test:
+1. get timeline
+2. post tweet by calling backend API
+3. get timeline again and make sure that the new tweet is at the top, and is displayed correctly
+*/
