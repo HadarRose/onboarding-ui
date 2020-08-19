@@ -13,10 +13,10 @@ function getTimeline() {
                 let container = document.getElementById("timeline-container");
                 container.innerHTML = ""; // clear old content
                 let respArray = JSON.parse(this.responseText); // FIXME TEMPORARY test: unfollow WHO and delete tweets to test empty response
-                let count = 0; // FIXME TEMPORARY this counter serves as an index. I'm using this instead of an indexed for-loop because the next lab is CSS and will probably override this styling anyways
                 respArray.forEach(function(tweet) {
                     let div = document.createElement("div");
 
+                    let userDiv = document.createElement("div");
                     // add image
                     let imageEl = document.createElement("img");
                     imageEl.src = DEFAULT_IMAGE; // set image source to default image in case image does not exist
@@ -26,30 +26,42 @@ function getTimeline() {
                             //imageEl.src = "bloop"; // FIXME TEMPORARY test: uncomment this to make sure bad image URLs are handled correctly
                         }
                     }
-                    div.appendChild(imageEl);
+                    userDiv.appendChild(imageEl);
 
+                    nameDiv = document.createElement("div");
+                    nameDiv.innerText = tweet.user.name;
+                    nameDiv.className = "user-name";
+                    userDiv.appendChild(nameDiv);
+
+                    handleDiv = document.createElement("div");
+                    handleDiv.innerText = tweet.user.twitterHandle;
+                    handleDiv.className = "user-handle";
+                    userDiv.appendChild(handleDiv);
+
+                    userDiv.className = "user-div";
+                    div.appendChild(userDiv);
+
+                    let messageDiv = document.createElement("div");
                     // add timestamp
-                    let readableDate = new Date(tweet.createdAt * 1000);
-                    let dateSpan = document.createElement("span");
-                    dateSpan.innerHTML = " " + readableDate + " ";
-                    dateSpan.style = "font-size:150%;" // FIXME styling, should probably be removed later
-                    div.appendChild(dateSpan);
+                    let readableDate = new Date(tweet.createdAt);
+                    let dateDiv = document.createElement("div");
+                    let timeOptions = { timeZone: 'America/North_Dakota/Center' , weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+                    dateDiv.innerHTML = readableDate.toLocaleString('en-US', timeOptions);
+                    dateDiv.className = "date";
+                    messageDiv.appendChild(dateDiv);
 
                     // add div to container
                     let link = document.createElement("a");
                     link.href = 'https://twitter.com/' + tweet.user.twitterHandle+ '/status/' + tweet.id;
                     link.target = "_blank";
                     link.innerText = tweet.message;
-                    div.appendChild(link);
+                    messageDiv.appendChild(link);
 
-                    // FIXME styling, to be removed at later labs
-                    /*if(count%2 == 0 ){
-                        div.style="background-color:powderblue;";
-                    } else {
-                        div.style="background-color:skyblue;";
-                    }*/
-                    count++;
-                    // add link wrapper to container
+                    messageDiv.className = "message-div";
+                    div.appendChild(messageDiv);
+
+                    // add div to container
+                    div.className = "tweet-block";
                     container.appendChild(div);  
                 });
             }

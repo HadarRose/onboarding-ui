@@ -2,20 +2,72 @@
     font-family: fantasy;
 }
 
-div.title-div {
+button {
+    margin: 10px 40px;
+    background-color: white;
+    border: 1px solid blue;
+    color: blue;
+    padding: 10px;
+}
+
+.content-div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.title-div {
     text-align: center;
     font-size: 40pt;
+    font-weight: bold;
 }
 
-div.timeline-container {
+.timeline-container {
     border-style: solid;
-    border-color: black; /*TODO make it not show up when empty, make it thinner*/
+    border-color: black;
+    border-width: 1pt;
+    margin: 10px 40px;
 }
 
-div.timeline-container > div:nth-of-type(odd){
+.timeline-container:empty {
+    display: none;
+}
+
+.timeline-container > div:nth-of-type(odd){
     background-color: #e8f5fd;
 }
 
-div.timeline-container > div:nth-of-type(even){
+.timeline-container > div:nth-of-type(even){
     background-color: #e9e9e9;
+}
+
+div.tweet-block{
+    border-bottom-style: solid;
+    border-color: #c3c3c4;
+    border-width: 1pt;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.user-div{
+    text-align: center;
+    margin-right: 30px;
+    flex: 0 0 20%; /*this sets user div's width to always be 20% regardless of flexing*/
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 130%;
+}
+
+.message-div > .date{
+    font-style: italic;
+    font-size: 80%;
+    padding-bottom: 5px;
+}
+
+.message-div > a{
+    text-decoration: none;
+    color: black;
 }
