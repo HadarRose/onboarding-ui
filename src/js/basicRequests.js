@@ -7,7 +7,11 @@ function getTimeline() {
         if(this.readyState == XMLHttpRequest.DONE){ // waits for request to be done
             // FIXME TEMPORARY test method: disconnect backend/change credentials 
             if(this.status != 200){ // checks if request was not successful
-                document.getElementById("timeline-container").innerHTML = "Something went wrong, please contact systems administrator.";
+                let errorDiv = document.createElement("div");
+                errorDiv.innerText = "Something went wrong, please contact systems administrator.";
+                errorDiv.className = "error-message";
+                document.getElementById("timeline-container").innerHTML = "";
+                document.getElementById("timeline-container").appendChild(errorDiv);
                 console.error("Bad response: " + this.status + "\nResponse received: " + this.responseText); 
             } else {
                 let container = document.getElementById("timeline-container");
@@ -45,8 +49,8 @@ function getTimeline() {
                     // add timestamp
                     let readableDate = new Date(tweet.createdAt);
                     let dateDiv = document.createElement("div");
-                    let timeOptions = { timeZone: 'America/North_Dakota/Center' , weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-                    dateDiv.innerHTML = readableDate.toLocaleString('en-US', timeOptions);
+                    let dateArr = readableDate.toString().split(" ")
+                    dateDiv.innerHTML = dateArr[1] + " " + dateArr[2];
                     dateDiv.className = "date";
                     messageDiv.appendChild(dateDiv);
 
@@ -68,7 +72,11 @@ function getTimeline() {
         }
     };
     xhttp.onerror = function(){ 
-        document.getElementById("timeline-container").innerHTML = "Something went wrong, please contact systems administrator.";
+        let errorDiv = document.createElement("div");
+                errorDiv.innerText = "Something went wrong, please contact systems administrator.";
+                errorDiv.className = "error-message";
+                document.getElementById("timeline-container").innerHTML = "";
+                document.getElementById("timeline-container").appendChild(errorDiv);
         console.error(xhttp.error); 
     };
     xhttp.open("GET", "http://localhost:8080/api/1.0/twitter/timeline", true);
