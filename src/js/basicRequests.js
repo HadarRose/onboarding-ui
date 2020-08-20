@@ -6,14 +6,10 @@ function getTimeline() {
     xhttp.onreadystatechange = function(){ // more on readystates: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState
         if(this.readyState == XMLHttpRequest.DONE){ // waits for request to be done
             // FIXME TEMPORARY test method: disconnect backend/change credentials 
-            if(this.status != 200){ // checks if request was not successful
-                let errorDiv = document.createElement("div");
-                errorDiv.innerText = "Something went wrong, please contact systems administrator.";
-                errorDiv.className = "error-message";
-                document.getElementById("timeline-container").innerHTML = "";
-                document.getElementById("timeline-container").appendChild(errorDiv);
+            if(this.status != 200 && this.status !=0){ // checks if request was not successful (or if it was an error connection, which would simply go to onerror)
                 console.error("Bad response: " + this.status + "\nResponse received: " + this.responseText); 
-            } else {
+                displayError();
+            } else if(this.status == 200) {
                 let container = document.getElementById("timeline-container");
                 container.innerHTML = ""; // clear old content
                 let respArray = JSON.parse(this.responseText); // FIXME TEMPORARY test: unfollow WHO and delete tweets to test empty response
@@ -30,6 +26,7 @@ function getTimeline() {
                             //imageEl.src = "bloop"; // FIXME TEMPORARY test: uncomment this to make sure bad image URLs are handled correctly
                         }
                     }
+                    imageEl.id = "user-icon";
                     userDiv.appendChild(imageEl);
 
                     nameDiv = document.createElement("div");
@@ -59,6 +56,7 @@ function getTimeline() {
                     link.href = 'https://twitter.com/' + tweet.user.twitterHandle+ '/status/' + tweet.id;
                     link.target = "_blank";
                     link.innerText = tweet.message;
+                    link.id = "message-link";
                     messageDiv.appendChild(link);
 
                     messageDiv.className = "message-div";
@@ -72,17 +70,20 @@ function getTimeline() {
         }
     };
     xhttp.onerror = function(){ 
-        let errorDiv = document.createElement("div");
-                errorDiv.innerText = "Something went wrong, please contact systems administrator.";
-                errorDiv.className = "error-message";
-                document.getElementById("timeline-container").innerHTML = "";
-                document.getElementById("timeline-container").appendChild(errorDiv);
         console.error(xhttp.error); 
+        displayError();
     };
     xhttp.open("GET", "http://localhost:8080/api/1.0/twitter/timeline", true);
     xhttp.send();
 }
 
+function displayError(){
+    let errorDiv = document.createElement("div");
+    errorDiv.innerText = "Something went wrong, please contact systems administrator.";
+    errorDiv.className = "error-message";
+    document.getElementById("timeline-container").innerHTML = "";
+    document.getElementById("timeline-container").appendChild(errorDiv);
+}
 /* Regular test:
 1. get timeline
 2. post tweet by calling backend API
