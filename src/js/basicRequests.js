@@ -56,7 +56,7 @@ function getTimeline() {
                     link.href = 'https://twitter.com/' + tweet.user.twitterHandle+ '/status/' + tweet.id;
                     link.target = "_blank";
                     link.innerText = tweet.message;
-                    link.id = "message-link";
+                    link.className = "message-link";
                     messageDiv.appendChild(link);
 
                     messageDiv.className = "message-div";

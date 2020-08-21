@@ -78,7 +78,7 @@
     padding-bottom: 5px;
 }
 
-.message-div > #message-link{
+.message-div > .message-link{
     text-decoration: none;
     color: black;
     font-size: 120%;
