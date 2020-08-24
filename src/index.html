@@ -2,13 +2,13 @@
 <html>
     <head>
         <script type="text/javascript" src="src/js/basicRequests.js"></script>
+        <link rel="stylesheet" href="src/css/index.css">
     </head>
-    <body>
-        <p>Hello World!</p>
-        <div>
-            <button onclick="getTimeline()">Get Timeline</button>
-            <div id="timeline-container">
-            </div>
+    <body onload="getTimeline()">
+        <div class="main-container">
+            <div class="title-div">Lab for Hadar</div>
+            <button onclick="getTimeline()" id="timeline-button">Get Timeline</button>
+            <div id="timeline-container" class="timeline-container"></div>
         </div>
     </body>
 </html>
