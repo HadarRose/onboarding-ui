@@ -4,10 +4,10 @@
 * Backend: https://github.com/HadarRose/C102
 
 ### Instructions
+* Set up:
+    * Get dependencies: ```npm install``` from root directory
 * Run: 
     * Run backend (see instructions in above link)
-    * ```node src/js/main.js``` from root directory
+    * ```npm run dev``` from root directory
 * Endpoint: 
     * http://localhost:9000
-
-
