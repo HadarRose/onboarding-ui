@@ -1,6 +1,5 @@
 const DEFAULT_IMAGE = "http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"; // the default image for twitter
 
-//module.exports =  function getTimeline() { 
 export function getTimeline(){
     console.info('Requesting timeline from backend.'); 
     let xhttp = new XMLHttpRequest();
