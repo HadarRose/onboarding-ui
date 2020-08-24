@@ -8,7 +8,7 @@ module.exports = {
     devtool: 'source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'), // path to non-irl files to be served
-        //publicPath: '/js/', // url from where webpack files are served
+        publicPath: '/js/', // url from where webpack files are served
         watchContentBase: true, // file changes trigger full reload
         compress: true, // gzip compression for served files
         port: 9000
@@ -27,6 +27,7 @@ module.exports = {
             },
             {
                 test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
