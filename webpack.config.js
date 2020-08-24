@@ -19,10 +19,11 @@ module.exports = {
     module:{
         rules: [ // scss thing may be needed when SCSS is implemented
             {
-                test: /\.css$/,
+                test: /\.scss$/,
                 use: [
                     'style-loader',
                     'css-loader',
+                    'sass-loader'
                 ]
             },
             {
