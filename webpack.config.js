@@ -11,7 +11,7 @@ module.exports = {
         publicPath: '/js/', // url from where webpack files are served
         watchContentBase: true, // file changes trigger full reload
         compress: true, // gzip compression for served files
-        port: 9000
+        port: 9000,
     },
     output: {
         filename: '[name].bundle.js', 
@@ -32,7 +32,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: ['@babel/preset-env', '@babel/preset-react']
                     }
                 }
             }
