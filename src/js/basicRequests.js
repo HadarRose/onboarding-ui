@@ -1,7 +1,7 @@
 const DEFAULT_IMAGE = "http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png"; // the default image for twitter
 
-function getTimeline() {
-    console.info('Requesting timeline from backend.');
+export function getTimeline(){
+    console.info('Requesting timeline from backend.'); 
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){ // more on readystates: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState
         if(this.readyState == XMLHttpRequest.DONE){ // waits for request to be done
@@ -29,12 +29,12 @@ function getTimeline() {
                     imageEl.id = "user-icon";
                     userDiv.appendChild(imageEl);
 
-                    nameDiv = document.createElement("div");
+                    let nameDiv = document.createElement("div");
                     nameDiv.innerText = tweet.user.name;
                     nameDiv.className = "user-name";
                     userDiv.appendChild(nameDiv);
 
-                    handleDiv = document.createElement("div");
+                    let handleDiv = document.createElement("div");
                     handleDiv.innerText = tweet.user.twitterHandle;
                     handleDiv.className = "user-handle";
                     userDiv.appendChild(handleDiv);
@@ -84,6 +84,7 @@ function displayError(){
     document.getElementById("timeline-container").innerHTML = "";
     document.getElementById("timeline-container").appendChild(errorDiv);
 }
+
 /* Regular test:
 1. get timeline
 2. post tweet by calling backend API
