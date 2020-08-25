@@ -1,6 +1,8 @@
+$font-stack: 'Times New Roman', Times, serif;
+
 .main-container {
     margin: 0px 60px 60px; 
-    font-family: 'Times New Roman', Times, serif;
+    font-family: $font-stack;
 }
 
 #timeline-button {
@@ -33,17 +35,19 @@
     display: none;
 }
 
-.timeline-container > div.tweet-block:nth-of-type(odd){
-    background-color: #e8f5fd;
-}
+.timeline-container > {
+    div.tweet-block:nth-of-type(odd){
+        background-color: #e8f5fd;
+    }
 
-.timeline-container > div.tweet-block:nth-of-type(even){
-    background-color: #e9e9e9;
-}
+    div.tweet-block:nth-of-type(even){
+        background-color: #e9e9e9;
+    }
 
-.timeline-container > div.tweet-block:last-child{
-    border-bottom-style: none;
-}
+    div.tweet-block:last-child{
+        border-bottom-style: none;
+    }
+} 
 
 .tweet-block{
     border: 1pt solid #c3c3c4;
@@ -58,9 +62,11 @@
     flex: 0 0 15%; /*this sets user div's width to always be 15% regardless of flexing*/
 }
 
-.user-div > #user-icon {
-    border-radius: 50%;
-    height: 65px;
+.user-div > {
+    #user-icon {
+        border-radius: 50%;
+        height: 65px;
+    }
 }
 
 .user-name {
@@ -72,16 +78,20 @@
     font-size: 75%;
 }
 
-.message-div > .date{
-    font-style: italic;
-    font-size: 80%;
-    padding-bottom: 5px;
+.message-div > {
+    .date{
+        font-style: italic;
+        font-size: 80%;
+        padding-bottom: 5px;
+    }
 }
 
-.message-div > .message-link{
-    text-decoration: none;
-    color: black;
-    font-size: 120%;
+.message-div > {
+    .message-link{
+        text-decoration: none;
+        color: black;
+        font-size: 120%;
+    }
 }
 
 .error-message {

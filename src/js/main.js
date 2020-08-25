@@ -1,4 +1,4 @@
-import '../css/index.scss';
+import '../styles/index.scss';
 import { getTimeline } from './basicRequests.js';
 
 document.addEventListener("DOMContentLoaded", ()=>{
