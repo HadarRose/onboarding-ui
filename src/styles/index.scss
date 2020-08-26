@@ -3,89 +3,101 @@ $font-stack: 'Times New Roman', Times, serif;
 .main-container {
     margin: 0px 60px 60px; 
     font-family: $font-stack;
-}
 
-#timeline-button {
-    margin-bottom: 5px;
-    background-color: white;
-    border: 1px solid blue;
-    color: blue;
-    padding: 5px;
-
-    &:hover{
-        color: white;
-        background-color: blue;
-        cursor: pointer;
-    }
-}
-
-.title-div {
-    text-align: center;
-    font-size: 40pt;
-    font-weight: bold;
-    margin-top: 25px;
-}
-
-.timeline-container {
-    border: 1pt solid black;
-    margin: 5px 0px;
+    #timeline-button {
+        margin-bottom: 5px;
+        background-color: white;
+        border: 1px solid blue;
+        color: blue;
+        padding: 5px;
     
-    > .tweet-block {    
-        border: 1pt solid #c3c3c4;
-        padding: 20px 20px 10px;
-        display: flex;
-        align-items: center;
-
-        &:nth-of-type(odd){
-            background-color: #e8f5fd;
-        }
-    
-        &:nth-of-type(even){
-            background-color: #e9e9e9;
-        }
-    
-        &:last-child{
-            border-bottom-style: none;
+        &:hover{
+            color: white;
+            background-color: blue;
+            cursor: pointer;
         }
     }
-    &:empty{
-        display: none;
+
+    .title-div {
+        text-align: center;
+        font-size: 40pt;
+        font-weight: bold;
+        margin-top: 25px;
     }
-} 
 
-.user-div  {
-    text-align: center;
-    margin-right: 30px;
-    flex: 0 0 15%; /*this sets user div's width to always be 15% regardless of flexing*/
-    > #user-icon {
-        border-radius: 50%;
-        height: 65px;
-    }
+    .timeline-container {
+        border: 1pt solid black;
+        margin: 5px 0px;
+
+        &:empty{
+            display: none;
+        }
+        
+        > .tweet-block {    
+            border: 1pt solid #c3c3c4;
+            padding: 20px 20px 10px;
+            display: flex;
+            align-items: center;
+    
+            &:nth-of-type(odd){
+                background-color: #e8f5fd;
+            }
+        
+            &:nth-of-type(even){
+                background-color: #e9e9e9;
+            }
+        
+            &:last-child{
+                border-bottom-style: none;
+            }
+
+            .user-div  {
+                text-align: center;
+                margin-right: 30px;
+                flex: 0 0 15%; /*this sets user div's width to always be 15% regardless of flexing*/
+                > #user-icon {
+                    border-radius: 50%;
+                    height: 65px;
+                }
+                
+                .user-name {
+                    font-weight: bold;
+                    font-size: 120%;
+                }
+                
+                .user-handle {
+                    font-size: 75%;
+                }
+            }
+
+            .message-div > {
+                .date{
+                    font-style: italic;
+                    font-size: 80%;
+                    padding-bottom: 5px;
+                }
+                .message-link{
+                    text-decoration: none;
+                    color: black;
+                    font-size: 120%;
+                }
+            }
+            
+        }
+
+        .error-message {
+            padding: 3px;
+            color: red;
+        }
+    } 
 }
 
-.user-name {
-    font-weight: bold;
-    font-size: 120%;
-}
 
-.user-handle {
-    font-size: 75%;
-}
 
-.message-div > {
-    .date{
-        font-style: italic;
-        font-size: 80%;
-        padding-bottom: 5px;
-    }
-    .message-link{
-        text-decoration: none;
-        color: black;
-        font-size: 120%;
-    }
-}
 
-.error-message {
-    padding: 3px;
-    color: red;
-}
+
+
+
+
+
+
