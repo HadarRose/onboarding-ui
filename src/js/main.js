@@ -1,19 +1,9 @@
 import '../styles/index.scss';
-import { getTimeline } from './basicRequests.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TimelinePage from './timelinePage';
 
 document.addEventListener("DOMContentLoaded", ()=>{
-    getTimeline();
-    document.getElementById("timeline-button").onclick = () => {
-        getTimeline();
-    };
-    ReactDOM.render(helloElement, document.getElementById("react-hello"));
-
+    ReactDOM.render(<TimelinePage />, document.getElementById("react-container"));
 });
 
-const helloElement = (
-    <p>
-        hello react!
-    </p>
-);
