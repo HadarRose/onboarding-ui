@@ -1,5 +1,6 @@
 import React from 'react';
 import TweetBlock from './tweetBlock';
+import TimelineService from './timelineService';
 
 export default class Timeline extends React.Component {
     constructor(props){
@@ -9,6 +10,7 @@ export default class Timeline extends React.Component {
             isLoaded: false, // flags if request was loaded or not
             error: null, // error message
         };
+        this.timelineService = new TimelineService(this);
     }
 
     componentDidMount() { // calls requestTimeline upon component being mounted
@@ -21,37 +23,7 @@ export default class Timeline extends React.Component {
             isLoaded: false,
             error: null,
         });
-        console.info('Requesting timeline from backend.'); 
-        let xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = (xhttp) => this.cleanTimeline(xhttp.currentTarget); // calls cleanTimeline instead
-        xhttp.onerror = () => this.setState({ // changes state to loaded with error message if error has ocurred
-            isLoaded: true,
-            error: "A connection error has occurred"
-        });
-        xhttp.open("GET", "http://localhost:8080/api/1.0/twitter/timeline", true);
-        xhttp.send();
-    }
-
-    cleanTimeline(xhttp){
-        if(xhttp.readyState == XMLHttpRequest.DONE){ // if response is done loading
-            console.debug("Request is DONE"); 
-            if (xhttp.status !=200){ // if there was an error
-                if(xhttp.status == 0){ 
-                    return; // xhttp onerror will catch this error
-                } else { // for uncaught errors, change the state's error and isLoaded
-                    let message = "Bad status: " + xhttp.status;
-                    this.setState({
-                        isLoaded: true,
-                        error: message
-                    });
-                }
-            } else { // if there were no errors, make the response content the state's tweets property, and mark as loaded
-                this.setState({
-                    isLoaded: true,
-                    tweets: JSON.parse(xhttp.responseText)
-                });
-            }
-        }
+        this.timelineService.makeRequest();
     }
 
     render() {
