@@ -11,7 +11,9 @@ export default class TimelinePage extends React.Component {
             <div className="main-container">
                 <div className="title-div">Lab for Hadar</div>
                 <button id="timeline-button" onClick={() => this.getTimeline()} >Get Timeline</button> 
-                <Timeline ref={"timeline"}/>
+                <div className="timeline-container">
+                    <Timeline ref={"timeline"}/>
+                </div>
             </div>
         );
     }

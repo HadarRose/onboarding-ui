@@ -26,23 +26,27 @@ export default class Timeline extends React.Component {
         this.timelineService.makeRequest();
     }
 
+    updateState(obj){
+        this.setState({
+            isLoaded: obj?.isLoaded,
+            tweets: obj?.tweets,
+            error: obj?.error
+        });
+    }
+
     render() {
         if(this.state.isLoaded && this.state.error){ // if loaded and an error, render error message
             console.error(this.state.error);
             return(
-                <div className="timeline-container">
-                    <div className="error-message">
-                        Something went wrong, please contact systems administrator.
-                    </div>
-                </div>   
+                <div className="error-message">
+                    Something went wrong, please contact systems administrator.
+                </div>
             );
         } else if(this.state.isLoaded){ // if loaded and no error, render a list of TweetBlock
             return(
-                <div className="timeline-container">
-                    {this.state.tweets.map(t => (
+                    this.state.tweets.map(t => (
                         <TweetBlock tweet={t}/>
-                    ))}
-                </div>
+                    ))
             );
         } else { // if still loading, render "Loading"
             return <div>Loading...</div>;
