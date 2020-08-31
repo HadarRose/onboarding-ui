@@ -17,7 +17,7 @@ module.exports = {
         filename: '[name].bundle.js', 
     },
     module:{
-        rules: [ // scss thing may be needed when SCSS is implemented
+        rules: [
             {
                 test: /\.scss$/,
                 use: [
