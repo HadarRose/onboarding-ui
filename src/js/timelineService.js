@@ -1,12 +1,12 @@
 export default class TimelineService{
-    constructor(comp){
-        console.log(comp);
-        this.timeline = comp;
+    constructor(func){
+        console.log(func);
+        this.retFunction = func;
 
         // xhttp set up
         this.xhttp = new XMLHttpRequest();
         this.xhttp.onreadystatechange = () => this.getTimeline();
-        this.xhttp.onerror = () => this.timeline.updateState({
+        this.xhttp.onerror = () => this.retFunction({
             isLoaded: true,
             tweets: [],
             error: "A connection error has occurred"
@@ -19,6 +19,10 @@ export default class TimelineService{
         this.xhttp.send();
     }
 
+    setReturnFunction(func){
+        this.retFunction = func;
+    }
+
     // handles the request's response, and sets the component's status as needed
     getTimeline(){
         console.log("Requesting timeline from backend");
@@ -29,14 +33,14 @@ export default class TimelineService{
                     return; // xhttp onerror will catch this error
                 } else { // for uncaught errors, change the state's error and isLoaded
                 let message = "Bad status: " + this.xhttp.status;
-                this.timeline.updateState({
+                this.retFunction({
                     isLoaded: true,
                     tweets: [],
                     error: message
                 });
                 }
             } else {
-                this.timeline.updateState({
+                this.retFunction({
                     isLoaded: true,
                     tweets: JSON.parse(this.xhttp.responseText),
                     error: null

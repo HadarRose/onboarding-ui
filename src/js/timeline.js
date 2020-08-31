@@ -10,7 +10,7 @@ export default class Timeline extends React.Component {
             isLoaded: false, // flags if request was loaded or not
             error: null, // error message
         };
-        this.timelineService = new TimelineService(this);
+        this.timelineService = new TimelineService(this.updateState.bind(this));
     }
 
     componentDidMount() { // calls requestTimeline upon component being mounted
@@ -32,24 +32,30 @@ export default class Timeline extends React.Component {
             tweets: obj?.tweets,
             error: obj?.error
         });
-    }
+    } 
 
     render() {
+        let content;
         if(this.state.isLoaded && this.state.error){ // if loaded and an error, render error message
             console.error(this.state.error);
-            return(
+            content = (
                 <div className="error-message">
                     Something went wrong, please contact systems administrator.
                 </div>
             );
         } else if(this.state.isLoaded){ // if loaded and no error, render a list of TweetBlock
-            return(
+            content = (
                     this.state.tweets.map(t => (
                         <TweetBlock tweet={t}/>
                     ))
             );
         } else { // if still loading, render "Loading"
-            return <div>Loading...</div>;
+            content = <div>Loading...</div>;
         }
+        return(
+            <div className="timeline-container"> 
+            {content}
+            </div>
+        );
     }
 }
