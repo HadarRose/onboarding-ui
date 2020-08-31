@@ -1,7 +1,7 @@
 export default class TimelineService{
-    constructor(func){
-        console.log(func);
-        this.retFunction = func;
+    constructor(callback){
+        console.log(callback);
+        this.retFunction = callback;
 
         // xhttp set up
         this.xhttp = new XMLHttpRequest();
@@ -19,8 +19,8 @@ export default class TimelineService{
         this.xhttp.send();
     }
 
-    setReturnFunction(func){
-        this.retFunction = func;
+    setCallback(callback){
+        this.retFunction = callback;
     }
 
     // handles the request's response, and sets the component's status as needed
