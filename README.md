@@ -11,3 +11,5 @@
     * ```npm run dev``` from root directory
 * Endpoint: 
     * http://localhost:9000
+* Test:
+    * ```npm run test``` from root directory
