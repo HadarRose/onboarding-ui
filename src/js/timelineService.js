@@ -1,18 +1,21 @@
 export default class TimelineService{
     constructor(callback){
-        console.log(callback);
-        this.retFunction = callback;
+        console.log("Timeline Service created");
+        this.callback = callback;
 
-        // xhttp set up
         this.xhttp = new XMLHttpRequest();
+        this.initXHTTP();
+    }
+
+    // xhttp setup
+    initXHTTP(){
         this.xhttp.onreadystatechange = () => this.getTimeline();
-        this.xhttp.onerror = () => this.retFunction({
+        this.xhttp.onerror = () => this.callback({
             isLoaded: true,
             tweets: [],
             error: "A connection error has occurred"
         });
     }
-
     // this function makes the GET call to the backend
     makeRequest(){
         this.xhttp.open("GET", "http://localhost:8080/api/1.0/twitter/timeline", true);
@@ -20,7 +23,8 @@ export default class TimelineService{
     }
 
     setCallback(callback){
-        this.retFunction = callback;
+        this.callback = callback;
+        this.initXHTTP();
     }
 
     // handles the request's response, and sets the component's status as needed
@@ -33,14 +37,14 @@ export default class TimelineService{
                     return; // xhttp onerror will catch this error
                 } else { // for uncaught errors, change the state's error and isLoaded
                 let message = "Bad status: " + this.xhttp.status;
-                this.retFunction({
+                this.callback({
                     isLoaded: true,
                     tweets: [],
                     error: message
                 });
                 }
             } else {
-                this.retFunction({
+                this.callback({
                     isLoaded: true,
                     tweets: JSON.parse(this.xhttp.responseText),
                     error: null

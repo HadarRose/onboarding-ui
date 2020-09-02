@@ -11,6 +11,7 @@ export default class Timeline extends React.Component {
             error: null, // error message
         };
         this.timelineService = new TimelineService(this.updateState.bind(this));
+        this.errorMessage = "Something went wrong, please contact systems administrator.";
     }
 
     componentDidMount() { // calls requestTimeline upon component being mounted
@@ -40,7 +41,7 @@ export default class Timeline extends React.Component {
             console.error(this.state.error);
             content = (
                 <div className="error-message">
-                    Something went wrong, please contact systems administrator.
+                    {this.errorMessage}
                 </div>
             );
         } else if(this.state.isLoaded){ // if loaded and no error, render a list of TweetBlock
