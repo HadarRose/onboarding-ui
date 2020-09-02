@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import TimelinePage from '../src/js/timelinePage';
-import Timeline from '../src/js/timeline';
+import TimelinePage from '../src/js/components/timelinePage';
+import Timeline from '../src/js/components/timeline';
 
 describe('Timeline Page', () =>{
     let wrapper;

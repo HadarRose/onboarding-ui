@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import TweetBlock from '../src/js/tweetBlock';
+import TweetBlock from '../src/js/components/tweetBlock';
 
 describe('Tweet Block', () => {
     let wrapper;
