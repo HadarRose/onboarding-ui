@@ -1,13 +1,17 @@
 import React from 'react';
 
 export default class TweetBlock extends React.Component {
+    constructor(props){
+        super(props);
+    }
+
     render(){
         let tweetLink = "https://twitter.com/" + 
                         this.props.tweet.user.twitterHandle+ "/status/" + 
                         this.props.tweet.id;
-            let readableDate = new Date(this.props.tweet.createdAt);
-            let dateArr = readableDate.toString().split(" ");
-            let dateOut = dateArr[1] + " " + dateArr[2];
+        let readableDate = new Date(this.props.tweet.createdAt);
+        let dateArr = readableDate.toString().split(" ");
+        let dateOut = dateArr[1] + " " + dateArr[2];
             return (
             <div className="tweet-block">
                 <div className="user-div">
@@ -15,9 +19,9 @@ export default class TweetBlock extends React.Component {
                     <div className="user-name">
                         {this.props.tweet.user.name}
                     </div>
-                    <div className="user-handle">
+                    <div className="user-handle" hidden={this.props.additionalProperties?.hiddenHandle}>
                         {this.props.tweet.user.twitterHandle}
-                    </div>
+                    </div>                
                 </div>
                 <div className="message-div">
                     <div className="date">
