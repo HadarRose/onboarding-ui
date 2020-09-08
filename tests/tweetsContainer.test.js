@@ -17,11 +17,11 @@ describe('tweetsContainer', ()=>{
         wrapper = shallow(<TweetsContainer/>);
     });
 
-    it('should render tweets-container', ()=>{
+    it('should render tweets-container', () => {
         expect(wrapper.find('div.tweets-container').length).toEqual(1);
     });
 
-    it('should render loading if not loaded', ()=>{
+    it('should render loading if not loaded', () => {
         wrapper.setState({
             'isLoaded': false,
             'error': 'error',
@@ -30,7 +30,7 @@ describe('tweetsContainer', ()=>{
         expect(wrapper.text()).toEqual('Loading...');
     });
 
-    it('should render error message if loaded with error', ()=>{
+    it('should render error message if loaded with error', () => {
         wrapper.setState({
             'isLoaded': true,
             'error': 'error',
@@ -41,7 +41,7 @@ describe('tweetsContainer', ()=>{
         expect(wrapper.text()).toEqual(wrapper.instance().errorMessage);
     });
 
-    it('should render tweet blocks if loaded w/o error', ()=>{
+    it('should render tweet blocks if loaded w/o error', () => {
         wrapper.setState({
             'isLoaded': true,
             'error': null,

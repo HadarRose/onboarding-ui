@@ -4,11 +4,7 @@ import TweetsContainer from './tweetsContainer';
 export default class Timeline extends React.Component {
     constructor(props){
         super(props);
-        if(this.props?.type){
-            this.className = 'timeline-container timeline-' + this.props.type;
-        } else {
-            this.className = 'timeline-container';
-        }
+       
     }
 
     getTimeline(){ // calls the timeline component's requestTimeline
@@ -16,8 +12,14 @@ export default class Timeline extends React.Component {
     }
 
     render() {
+        let className = '';
+        if(this.props?.type){
+            className = 'timeline-container timeline-' + this.props.type;
+        } else {
+            className = 'timeline-container';
+        }
         return(
-            <div className={this.className}> 
+            <div className={className}> 
                 <div className='header'>
                     <h3>{this.props.title}</h3>
                 </div>

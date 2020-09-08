@@ -6,16 +6,14 @@ export default class TweetBlock extends React.Component {
     }
 
     render(){
-        let tweetLink = "https://twitter.com/" + 
-                        this.props.tweet.user.twitterHandle+ "/status/" + 
-                        this.props.tweet.id;
+        let tweetLink = `https://twitter.com/${this.props.tweet.user.twitterHandle}/status/${this.props.tweet.id}`;
         let readableDate = new Date(this.props.tweet.createdAt);
         let dateArr = readableDate.toString().split(" ");
         let dateOut = dateArr[1] + " " + dateArr[2];
             return (
             <div className="tweet-block">
                 <div className="user-div">
-                    <img src={this.props.tweet.user.profileImageUrl} id="user-icon"></img>
+                    <img src={this.props.tweet.user.profileImageUrl} className="user-icon"></img>
                     <div className="user-name">
                         {this.props.tweet.user.name}
                     </div>

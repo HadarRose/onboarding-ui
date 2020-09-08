@@ -40,17 +40,15 @@ export default class TweetsContainer extends React.Component {
         // choose service method
         if(this.props?.serviceMethod){
             this.serviceMethod = this.props.serviceMethod;
-        }
-        else if(typeProperties?.serviceMethod){ 
+        } else if(typeProperties?.serviceMethod){ 
             this.serviceMethod = typeProperties.serviceMethod;
         } else {
-            this.serviceMethod = ()=> promiseTimeline();
+            this.serviceMethod = () => promiseTimeline();
         }
         // choose block properties
         if(this.props?.blockProps){
             this.blockProps = this.props.blockProps;
-        }
-        else if(typeProperties?.blockProps){
+        } else if(typeProperties?.blockProps){
             this.blockProps = typeProperties.blockProps;
         } else {
             this.blockProps = undefined;
@@ -58,8 +56,7 @@ export default class TweetsContainer extends React.Component {
         // choose error message
         if(this.props?.errorMessage){
             this.errorMessage = this.props.errorMessage;
-        }
-        else if(typeProperties?.errorMessage){
+        } else if(typeProperties?.errorMessage){
             this.errorMessage = typeProperties.errorMessage;
         } else {
             this.errorMessage = DEFAULT_ERROR_MESSAGE;
@@ -97,7 +94,7 @@ export default class TweetsContainer extends React.Component {
         console.error(err);
         this.setState({
             isLoaded: true,
-            tweet: null,
+            tweets: null,
             error: err
         });
     }
@@ -113,7 +110,7 @@ export default class TweetsContainer extends React.Component {
         } else if(this.state.isLoaded){ // if loaded and no error, render a list of TweetBlock
             content = (
                     this.state.tweets.map(t => (
-                        <TweetBlock tweet={t} additionalProperties={this.blockProps}/>
+                        <TweetBlock tweet={t} additionalProperties={this.blockProps} key={t.id}/>
                     ))
             );
         } else { // if still loading, render "Loading"
