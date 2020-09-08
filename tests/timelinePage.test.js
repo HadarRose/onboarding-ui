@@ -16,11 +16,7 @@ describe('Timeline Page', () =>{
         expect(wrapper.find('div.title-div').length).toEqual(1);
     });
 
-    it('should render a timeline button', () => {
-        expect(wrapper.find('button#timeline-button').length).toEqual(1); 
-    });
-
-    it('should render a Timeline component', () =>{
-        expect(wrapper.find('Timeline').length).toEqual(1);
+    it('should render two Timeline components', () =>{
+        expect(wrapper.find('Timeline').length).toEqual(2);
     });
 });

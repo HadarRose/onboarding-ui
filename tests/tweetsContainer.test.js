@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Timeline from '../src/js/components/timeline';
+import TweetsContainer from '../src/js/components/tweetsContainer';
 import { promiseTimeline } from '../src/js/services/timelineService';
 
 jest.mock('../src/js/services/timelineService');
@@ -10,15 +10,15 @@ var dummyPromise = new Promise(function(resolve, reject){});
 
 
 
-describe('Timeline', ()=>{
+describe('tweetsContainer', ()=>{
     let wrapper;
 
     beforeEach(() => {
-        wrapper = shallow(<Timeline/>);
+        wrapper = shallow(<TweetsContainer/>);
     });
 
-    it('should render timeline-container', ()=>{
-        expect(wrapper.find('div.timeline-container').length).toEqual(1);
+    it('should render tweets-container', ()=>{
+        expect(wrapper.find('div.tweets-container').length).toEqual(1);
     });
 
     it('should render loading if not loaded', ()=>{
