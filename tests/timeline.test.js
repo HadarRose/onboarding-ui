@@ -1,8 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Timeline from '../src/js/timeline';
+import Timeline from '../src/js/components/timeline';
+import { promiseTimeline } from '../src/js/services/timelineService';
 
-jest.mock('../src/js/timelineService');
+jest.mock('../src/js/services/timelineService');
+promiseTimeline.mockImplementation(() => {return dummyPromise});
+
+var dummyPromise = new Promise(function(resolve, reject){});
+
+
 
 describe('Timeline', ()=>{
     let wrapper;

@@ -3,7 +3,8 @@
     "author": "Hadar Rozenberg",
     "scripts": {
         "dev": "webpack-dev-server --open",
-        "test": "jest"
+        "test": "jest --silent",
+        "test:debug": "jest"
     },
     "devDependencies": {
         "webpack": "^4.44.1",
@@ -24,6 +25,7 @@
         "jest-environment-enzyme": "^7.1.2",
         "jest-enzyme": "^7.1.2",
         "enzyme-adapter-react-16": "^1.15.4",
-        "enzyme": "^3.11.0"
+        "enzyme": "^3.11.0",
+        "axios": "^0.20.0"
     }
 }

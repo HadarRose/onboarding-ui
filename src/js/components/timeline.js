@@ -1,6 +1,6 @@
 import React from 'react';
 import TweetBlock from './tweetBlock';
-import TimelineService from './timelineService';
+import {promiseTimeline} from '../services/timelineService';
 
 export default class Timeline extends React.Component {
     constructor(props){
@@ -10,7 +10,6 @@ export default class Timeline extends React.Component {
             isLoaded: false, // flags if request was loaded or not
             error: null, // error message
         };
-        this.timelineService = new TimelineService(this.updateState.bind(this));
         this.errorMessage = "Something went wrong, please contact systems administrator.";
     }
 
@@ -19,26 +18,40 @@ export default class Timeline extends React.Component {
     }
 
     requestTimeline(){ // requests tweets from back end
-        this.setState({ // resets state
-            tweets: [],
-            isLoaded: false,
-            error: null,
+        this.setState({
+            isLoaded: false, 
         });
-        this.timelineService.makeRequest();
+        promiseTimeline().then(
+            (response) => {
+                this.updateTimeline(response);
+            },
+            (error) => {
+                this.declareError(error);
+            }
+        );
     }
 
-    updateState(obj){
+    updateTimeline(response){
+        console.debug(response);
         this.setState({
-            isLoaded: obj?.isLoaded,
-            tweets: obj?.tweets,
-            error: obj?.error
+            isLoaded: true,
+            tweets: response.data,
+            error: null
         });
     } 
+
+    declareError(err){
+        console.error(err);
+        this.setState({
+            isLoaded: true,
+            tweet: null,
+            error: err
+        });
+    }
 
     render() {
         let content;
         if(this.state.isLoaded && this.state.error){ // if loaded and an error, render error message
-            console.error(this.state.error);
             content = (
                 <div className="error-message">
                     {this.errorMessage}
