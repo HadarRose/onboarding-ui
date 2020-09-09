@@ -4,28 +4,6 @@ import {promiseTimeline, promiseTimelineSelf} from '../services/timelineService'
 
 export const DEFAULT_ERROR_MESSAGE = 'Something went wrong, please contact systems administrator.';
 
-/* HOW TO USE:
-    To use the types, simply add a new type to the "TYPES" object. 
-    Any fields that are not defined in your new type should be set to their default value in the constructor.
-    You can also override a field by passing it as a property.
-*/
-const TYPES = {
-    default: {}, 
-    self: {
-        serviceMethod: () => promiseTimelineSelf().then((response) => {
-            if(response?.data?.length == 0){
-                throw new Error('No tweets');
-            } else {
-                return response;
-            }
-        }),
-        blockProps: {
-            hiddenHandle: true
-        },
-        errorMessage: 'No tweets are available, post a tweet!'
-    }
-};
-
 export default class TweetsContainer extends React.Component {
     constructor(props){
         super(props);
@@ -34,33 +12,32 @@ export default class TweetsContainer extends React.Component {
             isLoaded: false, // flags if request was loaded or not
             error: null, // error message
         };
-        let typeProperties = TYPES[this.props.type];
+         
+        if(this.props.type in this.TYPES){ // change type to specified type, if specified type exists
+            this.serviceMethod = this.TYPES[this.props.type]
+        } else {
+            this.serviceMethod = this.TYPES['default']; // set type to default
+        }
+    }
 
-        /* HANDLING TYPE AND PROPERTIES */
-        // choose service method
-        if(this.props?.serviceMethod){
-            this.serviceMethod = this.props.serviceMethod;
-        } else if(typeProperties?.serviceMethod){ 
-            this.serviceMethod = typeProperties.serviceMethod;
-        } else {
-            this.serviceMethod = () => promiseTimeline();
-        }
-        // choose block properties
-        if(this.props?.blockProps){
-            this.blockProps = this.props.blockProps;
-        } else if(typeProperties?.blockProps){
-            this.blockProps = typeProperties.blockProps;
-        } else {
-            this.blockProps = undefined;
-        }
-        // choose error message
-        if(this.props?.errorMessage){
-            this.errorMessage = this.props.errorMessage;
-        } else if(typeProperties?.errorMessage){
-            this.errorMessage = typeProperties.errorMessage;
-        } else {
-            this.errorMessage = DEFAULT_ERROR_MESSAGE;
-        }
+    get TYPES(){
+        return {
+            default: () => promiseTimeline(),
+            self: () => promiseTimelineSelf().then(
+                (response) => {
+                    if(response?.data?.length == 0){ // if no tweets, set error message to special error message
+                        this.errorMessage = 'No tweets are available, post a tweet!';
+                        throw new Error('No tweets');
+                    } else {
+                        response.data.map((tweet) => {  // remove twitterHandle from tweets that are passed to TweetBlock
+                            delete tweet.user.twitterHandle;
+                            return tweet;
+                        });
+                        return response;
+                    }
+                }
+            )
+        };
     }
 
     componentDidMount() { // calls requestTimeline upon component being mounted
@@ -68,6 +45,8 @@ export default class TweetsContainer extends React.Component {
     }
 
     requestTimeline(){ // requests tweets from back end
+        // reset error message and isLoaded state
+        this.errorMessage = undefined; 
         this.setState({
             isLoaded: false, 
         });
@@ -92,6 +71,9 @@ export default class TweetsContainer extends React.Component {
 
     declareError(err){
         console.error(err);
+        if(!this?.errorMessage){ // if an error message hasn't been defined, use default one
+            this.errorMessage = DEFAULT_ERROR_MESSAGE;
+        }
         this.setState({
             isLoaded: true,
             tweets: null,
@@ -110,7 +92,7 @@ export default class TweetsContainer extends React.Component {
         } else if(this.state.isLoaded){ // if loaded and no error, render a list of TweetBlock
             content = (
                     this.state.tweets.map(t => (
-                        <TweetBlock tweet={t} additionalProperties={this.blockProps} key={t.id}/>
+                        <TweetBlock tweet={t} key={t.id}/>
                     ))
             );
         } else { // if still loading, render "Loading"
@@ -123,8 +105,3 @@ export default class TweetsContainer extends React.Component {
         );
     }
 }
-
-// sets the default type of timeline to 'default'
-TweetsContainer.defaultProps = {
-    type: 'default'
-};

@@ -38,7 +38,6 @@ describe('tweetsContainer', ()=>{
         });
         let content = wrapper.find('div.error-message');
         expect(content.length).toEqual(1);
-        expect(wrapper.text()).toEqual(wrapper.instance().errorMessage);
     });
 
     it('should render tweet blocks if loaded w/o error', () => {

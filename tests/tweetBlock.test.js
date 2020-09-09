@@ -30,7 +30,7 @@ describe('Tweet Block', () => {
     });
 
     it('should correctly render user icon', () => {
-        let icon = wrapper.find('img#user-icon');
+        let icon = wrapper.find('img.user-icon');
         expect(icon.length).toEqual(1);
         expect(icon.props().src).toEqual(dummyJSON.user.profileImageUrl);
     });
