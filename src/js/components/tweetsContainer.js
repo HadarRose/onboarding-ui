@@ -29,11 +29,13 @@ export default class TweetsContainer extends React.Component {
                         this.errorMessage = 'No tweets are available, post a tweet!';
                         throw new Error('No tweets');
                     } else {
-                        response.data.map((tweet) => {  // remove twitterHandle from tweets that are passed to TweetBlock
-                            delete tweet.user.twitterHandle;
-                            return tweet;
-                        });
-                        return response;
+                        let resp = {
+                            data: response.data.map((tweet) => {  // remove twitterHandle from tweets that are passed to TweetBlock
+                                delete tweet.user.twitterHandle;
+                                return tweet;
+                            })
+                        }
+                        return resp;
                     }
                 }
             )
