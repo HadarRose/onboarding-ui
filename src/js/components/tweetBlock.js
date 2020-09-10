@@ -17,9 +17,11 @@ export default class TweetBlock extends React.Component {
                     <div className="user-name">
                         {this.props.tweet.user.name}
                     </div>
-                    <div className="user-handle" hidden={this.props?.hidden?.handle}>
-                        {this.props.tweet.user.twitterHandle}
-                    </div>                
+                    { !this.props?.hiddenElements?.handle &&
+                        <div className="user-handle">
+                            {this.props.tweet.user.twitterHandle}
+                        </div>  
+                    }              
                 </div>
                 <div className="message-div">
                     <div className="date">

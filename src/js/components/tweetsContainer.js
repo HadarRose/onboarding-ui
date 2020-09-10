@@ -13,37 +13,38 @@ export default class TweetsContainer extends React.Component {
             error: null, // error message
         };
          
-        if(this.props.type in this.TYPE_SERVICE){ // change type to specified type, if specified type exists
-            this.serviceMethod = this.TYPE_SERVICE[this.props.type];
-            this.blockProps = this.TYPE_BLOCK_PROPS[this.props.type];
+        if(this.props.type in this.TYPES){ // change type to specified type, if specified type exists
+            this.serviceMethod = this.TYPES[this.props.type].serviceMethod;
+            this.blockProps = this.TYPES[this.props.type].blockProps;
         } else {
-            this.serviceMethod = this.TYPE_SERVICE['default']; // set type to default
-            this.blockProps = this.TYPE_BLOCK_PROPS['default'];
+            this.serviceMethod = this.TYPES['default'].serviceMethod; // set type to default
+            this.blockProps = this.TYPES['default'].blockProps;
         }
     }
 
-    get TYPE_SERVICE(){
+    get TYPES(){
         return {
-            default: () => promiseTimeline(),
-            self: () => promiseTimelineSelf().then(
-                (response) => {
-                    if(response?.data?.length == 0){ // if no tweets, set error message to special error message
-                        this.errorMessage = 'No tweets are available, post a tweet!';
-                        throw new Error('No tweets');
-                    } else {
-                        return response;
-                    }
-                }
-            )
-        };
-    }
-
-    get TYPE_BLOCK_PROPS(){
-        return {
-            default: undefined,
+            default: {
+                serviceMethod: () => promiseTimeline(),
+                blockProps: undefined
+            },
             self: {
-                handle: true
+                serviceMethod:  () => promiseTimelineSelf().then(
+                    (response) => {
+                        if(response?.data?.length == 0){ // if no tweets, set error message to special error message
+                            this.errorMessage = 'No tweets are available, post a tweet!';
+                            throw new Error('No tweets');
+                        } else {
+                            return response;
+                        }
+                    }
+                ),
+                blockProps: {
+                    handle: true
+                }
             }
+            
+           
         };
     }
 
@@ -99,7 +100,7 @@ export default class TweetsContainer extends React.Component {
         } else if(this.state.isLoaded){ // if loaded and no error, render a list of TweetBlock
             content = (
                     this.state.tweets.map(t => (
-                        <TweetBlock tweet={t} key={t.id} hidden={this.blockProps}/>
+                        <TweetBlock tweet={t} key={t.id} hiddenElements={this.blockProps}/>
                     ))
             );
         } else { // if still loading, render "Loading"
