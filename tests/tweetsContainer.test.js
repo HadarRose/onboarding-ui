@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Timeline from '../src/js/components/timeline';
+import TweetsContainer from '../src/js/components/tweetsContainer';
 import { promiseTimeline } from '../src/js/services/timelineService';
 
 jest.mock('../src/js/services/timelineService');
@@ -10,18 +10,18 @@ var dummyPromise = new Promise(function(resolve, reject){});
 
 
 
-describe('Timeline', ()=>{
+describe('tweetsContainer', ()=>{
     let wrapper;
 
     beforeEach(() => {
-        wrapper = shallow(<Timeline/>);
+        wrapper = shallow(<TweetsContainer/>);
     });
 
-    it('should render timeline-container', ()=>{
-        expect(wrapper.find('div.timeline-container').length).toEqual(1);
+    it('should render tweets-container', () => {
+        expect(wrapper.find('div.tweets-container').length).toEqual(1);
     });
 
-    it('should render loading if not loaded', ()=>{
+    it('should render loading if not loaded', () => {
         wrapper.setState({
             'isLoaded': false,
             'error': 'error',
@@ -30,7 +30,7 @@ describe('Timeline', ()=>{
         expect(wrapper.text()).toEqual('Loading...');
     });
 
-    it('should render error message if loaded with error', ()=>{
+    it('should render error message if loaded with error', () => {
         wrapper.setState({
             'isLoaded': true,
             'error': 'error',
@@ -38,10 +38,9 @@ describe('Timeline', ()=>{
         });
         let content = wrapper.find('div.error-message');
         expect(content.length).toEqual(1);
-        expect(wrapper.text()).toEqual(wrapper.instance().errorMessage);
     });
 
-    it('should render tweet blocks if loaded w/o error', ()=>{
+    it('should render tweet blocks if loaded w/o error', () => {
         wrapper.setState({
             'isLoaded': true,
             'error': null,

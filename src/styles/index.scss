@@ -1,22 +1,18 @@
 $font-stack: 'Times New Roman', Times, serif;
 
-.main-container {
-    margin: 0px 60px 60px; 
-    font-family: $font-stack;
+// margin handing variables
+$timeline-separating-margin: 20px;
+$timeline-page-margin: 25px;
+$timeline-margin: $timeline-separating-margin/2; // the margin each timeline should have to have correct separation
+$additional-page-margin: $timeline-page-margin - $timeline-margin; // the additional main-container margin needed to achieve the desired margin
 
-    #timeline-button {
-        margin-bottom: 5px;
-        background-color: white;
-        border: 1px solid blue;
-        color: blue;
-        padding: 5px;
-    
-        &:hover{
-            color: white;
-            background-color: blue;
-            cursor: pointer;
-        }
-    }
+body{  // needed because of some additional imported stylesheet
+    margin: 0px;
+}
+
+.main-container {
+    margin: 0px $additional-page-margin 60px; 
+    font-family: $font-stack;
 
     .title-div {
         text-align: center;
@@ -25,71 +21,112 @@ $font-stack: 'Times New Roman', Times, serif;
         margin-top: 25px;
     }
 
-    .timeline-container {
-        border: 1pt solid black;
-        margin: 5px 0px;
+    .timelines {
+        display: grid;
+        grid-template-columns: 55% 45%;
 
-        &:empty{
-            display: none;
-        }
-        
-        > .tweet-block {    
-            border: 1pt solid #c3c3c4;
-            padding: 20px 20px 10px;
+        .timeline-container {
+            margin: 0px $timeline-margin 0px;
             display: flex;
-            align-items: center;
-    
-            &:nth-of-type(odd){
-                background-color: #e8f5fd;
-            }
-        
-            &:nth-of-type(even){
-                background-color: #e9e9e9;
-            }
-        
-            &:last-child{
-                border-bottom-style: none;
-            }
-
-            .user-div  {
-                text-align: center;
-                margin-right: 30px;
-                flex: 0 0 15%; /*this sets user div's width to always be 15% regardless of flexing*/
-                > #user-icon {
-                    border-radius: 50%;
-                    height: 65px;
-                }
-                
-                .user-name {
-                    font-weight: bold;
-                    font-size: 120%;
-                }
-                
-                .user-handle {
-                    font-size: 75%;
-                }
-            }
-
-            .message-div > {
-                .date{
-                    font-style: italic;
-                    font-size: 80%;
-                    padding-bottom: 5px;
-                }
-                .message-link{
-                    text-decoration: none;
-                    color: black;
-                    font-size: 120%;
-                }
-            }
+            flex-direction: column;
+            #timeline-button {
+                align-self: flex-end;
+                margin-bottom: 5px;
+                background-color: white;
+                border: 1px solid blue;
+                color: blue;
+                padding: 5px;
             
-        }
+                &:hover{
+                    color: white;
+                    background-color: blue;
+                    cursor: pointer;
+                }
+            }
 
-        .error-message {
-            padding: 3px;
-            color: red;
+            .header{
+                text-align: center;
+            }
+
+            .tweets-container {
+                border: 1pt solid black;
+                margin: 5px 0px;
+        
+                &:empty{
+                    display: none;
+                }
+
+                > .tweet-block {    
+                    border: 1pt solid #c3c3c4;
+                    padding: 20px 20px 10px;
+                    display: flex;
+
+                    &:nth-of-type(odd){
+                        background-color: #e8f5fd;
+                    }
+                
+                    &:nth-of-type(even){
+                        background-color: #e9e9e9;
+                    }
+                
+                    &:last-child{
+                        border-bottom-style: none;
+                    }
+        
+                    .user-div  {
+                        text-align: center;
+                        margin-right: 30px;
+                        flex: 0 0 15%; /*this sets user div's width to always be 15% regardless of flexing*/
+                        > .user-icon {
+                            border-radius: 50%;
+                            height: 65px;
+                        }
+                        
+                        .user-name {
+                            font-weight: bold;
+                            font-size: 120%;
+                        }
+                        
+                        .user-handle {
+                            font-size: 75%;
+                        }
+                    }
+        
+                    .message-div > {
+                        .date{
+                            font-style: italic;
+                            font-size: 80%;
+                            padding-bottom: 5px;
+                        }
+                        .message-link{
+                            text-decoration: none;
+                            color: black;
+                            font-size: 120%;
+                        }
+                    }
+                    
+                }
+        
+                .error-message {
+                    padding: 3px;
+                    color: red;
+                }
+            }
+
+            &.timeline-self {
+                > .tweets-container {
+                    > .tweet-block {    
+                        &:nth-of-type(odd){
+                            background-color: #F5F8FA;
+                        }
+                        &:nth-of-type(even){
+                            background-color: #1DA1F2;
+                        }
+                    }
+                }
+            }
         }
-    } 
+    }
 }
 
 
