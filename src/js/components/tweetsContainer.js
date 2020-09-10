@@ -13,14 +13,16 @@ export default class TweetsContainer extends React.Component {
             error: null, // error message
         };
          
-        if(this.props.type in this.TYPES){ // change type to specified type, if specified type exists
-            this.serviceMethod = this.TYPES[this.props.type]
+        if(this.props.type in this.TYPE_SERVICE){ // change type to specified type, if specified type exists
+            this.serviceMethod = this.TYPE_SERVICE[this.props.type];
+            this.blockProps = this.TYPE_BLOCK_PROPS[this.props.type];
         } else {
-            this.serviceMethod = this.TYPES['default']; // set type to default
+            this.serviceMethod = this.TYPE_SERVICE['default']; // set type to default
+            this.blockProps = this.TYPE_BLOCK_PROPS['default'];
         }
     }
 
-    get TYPES(){
+    get TYPE_SERVICE(){
         return {
             default: () => promiseTimeline(),
             self: () => promiseTimelineSelf().then(
@@ -29,16 +31,19 @@ export default class TweetsContainer extends React.Component {
                         this.errorMessage = 'No tweets are available, post a tweet!';
                         throw new Error('No tweets');
                     } else {
-                        let resp = {
-                            data: response.data.map((tweet) => {  // remove twitterHandle from tweets that are passed to TweetBlock
-                                delete tweet.user.twitterHandle;
-                                return tweet;
-                            })
-                        }
-                        return resp;
+                        return response;
                     }
                 }
             )
+        };
+    }
+
+    get TYPE_BLOCK_PROPS(){
+        return {
+            default: undefined,
+            self: {
+                handle: true
+            }
         };
     }
 
@@ -94,7 +99,7 @@ export default class TweetsContainer extends React.Component {
         } else if(this.state.isLoaded){ // if loaded and no error, render a list of TweetBlock
             content = (
                     this.state.tweets.map(t => (
-                        <TweetBlock tweet={t} key={t.id}/>
+                        <TweetBlock tweet={t} key={t.id} hidden={this.blockProps}/>
                     ))
             );
         } else { // if still loading, render "Loading"

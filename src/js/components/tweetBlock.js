@@ -4,7 +4,7 @@ export default class TweetBlock extends React.Component {
     constructor(props){
         super(props);
     }
-
+    
     render(){
         let tweetLink = `https://twitter.com/${this.props.tweet.user.twitterHandle}/status/${this.props.tweet.id}`;
         let readableDate = new Date(this.props.tweet.createdAt);
@@ -17,7 +17,7 @@ export default class TweetBlock extends React.Component {
                     <div className="user-name">
                         {this.props.tweet.user.name}
                     </div>
-                    <div className="user-handle">
+                    <div className="user-handle" hidden={this.props?.hidden?.handle}>
                         {this.props.tweet.user.twitterHandle}
                     </div>                
                 </div>
