@@ -6,7 +6,7 @@ $timeline-page-margin: 25px;
 $timeline-margin: $timeline-separating-margin/2; // the margin each timeline should have to have correct separation
 $additional-page-margin: $timeline-page-margin - $timeline-margin; // the additional main-container margin needed to achieve the desired margin
 
-body{  // needed because of some additional imported stylesheet
+body {  // needed because of some additional imported stylesheet
     margin: 0px;
 }
 
@@ -29,7 +29,7 @@ body{  // needed because of some additional imported stylesheet
             margin: 0px $timeline-margin 0px;
             display: flex;
             flex-direction: column;
-            #timeline-button {
+            .timeline-button { 
                 align-self: flex-end;
                 margin-bottom: 5px;
                 background-color: white;
@@ -37,14 +37,14 @@ body{  // needed because of some additional imported stylesheet
                 color: blue;
                 padding: 5px;
             
-                &:hover{
+                &:hover {
                     color: white;
                     background-color: blue;
                     cursor: pointer;
                 }
             }
 
-            .header{
+            .header {
                 text-align: center;
             }
 
@@ -113,13 +113,31 @@ body{  // needed because of some additional imported stylesheet
                 }
             }
 
+            .filter-component {
+                align-self: flex-end;
+                .timeline-button { // additional timeline-button properties for a button belonging to filter components
+                    &:disabled {
+                        border-color: gray;
+                        color: gray;
+                        background-color: lightgray;
+                        &:hover{
+                            cursor: default;
+                        }
+                    }
+                }
+                .filter-input {
+                    margin-right: 5px;
+                    padding: 5px;
+                }
+            }
+
             &.timeline-self {
                 > .tweets-container {
                     > .tweet-block {    
-                        &:nth-of-type(odd){
+                        &:nth-of-type(odd) {
                             background-color: #F5F8FA;
                         }
-                        &:nth-of-type(even){
+                        &:nth-of-type(even) {
                             background-color: #1DA1F2;
                         }
                     }

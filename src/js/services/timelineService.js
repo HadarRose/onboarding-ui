@@ -27,3 +27,18 @@ import axios from 'axios';
         }
     );
  }
+ 
+ export function promiseTimelineFiltered(keyword){
+    return axios.get(`http://localhost:8080/api/1.0/twitter/timeline/filter?keyword=${keyword}`)
+    .then(
+        (response) => {
+            console.debug("Get filtered timeline successful");
+            return response;
+        },
+        (error) => {
+            console.debug("get filtered timeline failed");
+            throw error;
+        }
+    );
+ }
+ 
