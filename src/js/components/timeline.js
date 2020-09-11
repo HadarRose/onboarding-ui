@@ -10,7 +10,6 @@ export default class Timeline extends React.Component {
     }
 
     getTimeline(){ // calls the tweetsContainer's requestTimeline
-        this.setState({keyword: ''}); // clear filter
         this.refs.timeline.requestTimeline();
     }
 

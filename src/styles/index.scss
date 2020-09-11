@@ -30,7 +30,7 @@ body {  // needed because of some additional imported stylesheet
             display: flex;
             flex-direction: column;
             .timeline-button { 
-                align-self: flex-end;
+                align-self: flex-start;
                 margin-bottom: 5px;
                 background-color: white;
                 border: 1px solid blue;
@@ -132,6 +132,9 @@ body {  // needed because of some additional imported stylesheet
             }
 
             &.timeline-self {
+                .timeline-button{
+                    align-self: flex-end;
+                }
                 > .tweets-container {
                     > .tweet-block {    
                         &:nth-of-type(odd) {
