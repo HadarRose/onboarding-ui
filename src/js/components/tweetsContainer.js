@@ -1,6 +1,6 @@
 import React from 'react';
 import TweetBlock from './tweetBlock';
-import {promiseTimeline, promiseTimelineSelf, promiseTimelineFiltered} from '../services/timelineService';
+import {getTimeline, getTimelineSelf, getTimelineFiltered} from '../services/timelineService';
 
 export const DEFAULT_ERROR_MESSAGE = 'Something went wrong, please contact systems administrator.';
 
@@ -25,11 +25,11 @@ export default class TweetsContainer extends React.Component {
     get TYPES(){
         return {
             default: {
-                serviceMethod: () => promiseTimeline(),
+                serviceMethod: () => getTimeline(),
                 blockProps: undefined
             },
             self: {
-                serviceMethod:  () => promiseTimelineSelf().then(
+                serviceMethod:  () => getTimelineSelf().then(
                     (response) => {
                         if(response?.data?.length == 0){ // if no tweets, set error message to special error message
                             this.errorMessage = 'No tweets are available, post a tweet!';
@@ -94,7 +94,7 @@ export default class TweetsContainer extends React.Component {
         this.setState({
             isLoaded: false, 
         });
-        promiseTimelineFiltered(keyword).then(
+        getTimelineFiltered(keyword).then(
             (response) => {
                 if(response?.data?.length == 0){ // if no tweets, set error message to special error message
                     this.errorMessage = 'No tweets found for this keyword. Try a different word, or refresh the timeline!';

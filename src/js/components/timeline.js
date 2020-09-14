@@ -63,12 +63,14 @@ export default class Timeline extends React.Component {
                 <div className='header'>
                     <h3>{this.props.title}</h3>
                 </div>
-                <button className="timeline-button" 
-                    onClick={() => this.getTimeline()} 
-                >Refresh</button>
-                { !this.props?.type &&
-                    this.filterComponent()
-                } 
+                <div className="timeline-inputs">
+                    <button className="timeline-button" 
+                        onClick={() => this.getTimeline()} 
+                    >Refresh</button>
+                    { !this.props?.type &&
+                        this.filterComponent()
+                    } 
+                </div>
                 <TweetsContainer type={this.props?.type} ref={'timeline'}/>
             </div>
         );

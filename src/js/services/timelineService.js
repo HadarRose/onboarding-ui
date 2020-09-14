@@ -1,6 +1,6 @@
 import axios from 'axios';
 
- export function promiseTimeline(){
+ export function getTimeline(){
     return axios.get('http://localhost:8080/api/1.0/twitter/timeline')
     .then(
         (response) => {
@@ -14,7 +14,7 @@ import axios from 'axios';
     );
  }
 
- export function promiseTimelineSelf(){
+ export function getTimelineSelf(){
     return axios.get('http://localhost:8080/api/1.0/twitter/timeline/self')
     .then(
         (response) => {
@@ -28,7 +28,7 @@ import axios from 'axios';
     );
  }
  
- export function promiseTimelineFiltered(keyword){
+ export function getTimelineFiltered(keyword){
     return axios.get(`http://localhost:8080/api/1.0/twitter/timeline/filter?keyword=${keyword}`)
     .then(
         (response) => {

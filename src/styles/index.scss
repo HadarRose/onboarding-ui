@@ -24,26 +24,41 @@ body {  // needed because of some additional imported stylesheet
     .timelines {
         display: grid;
         grid-template-columns: 55% 45%;
-
         .timeline-container {
             margin: 0px $timeline-margin 0px;
-            display: flex;
-            flex-direction: column;
-            .timeline-button { 
-                align-self: flex-start;
-                margin-bottom: 5px;
-                background-color: white;
-                border: 1px solid blue;
-                color: blue;
-                padding: 5px;
-            
-                &:hover {
-                    color: white;
-                    background-color: blue;
-                    cursor: pointer;
+            .timeline-inputs{
+                display: flex;
+                justify-content: space-between;
+                .timeline-button { 
+                    margin-bottom: 5px;
+                    background-color: white;
+                    border: 1px solid blue;
+                    color: blue;
+                    padding: 5px;
+                    &:hover {
+                        color: white;
+                        background-color: blue;
+                        cursor: pointer;
+                    }
+                }
+                .filter-component {
+                    .timeline-button { // additional timeline-button properties for a button belonging to filter components
+                        &:disabled {
+                            border-color: gray;
+                            color: gray;
+                            background-color: lightgray;
+                            &:hover{
+                                cursor: default;
+                            }
+                        }
+                    }
+                    .filter-input {
+                        margin-right: 5px;
+                        padding: 5px;
+                    }
                 }
             }
-
+            
             .header {
                 text-align: center;
             }
@@ -51,7 +66,6 @@ body {  // needed because of some additional imported stylesheet
             .tweets-container {
                 border: 1pt solid black;
                 margin: 5px 0px;
-        
                 &:empty{
                     display: none;
                 }
@@ -112,29 +126,13 @@ body {  // needed because of some additional imported stylesheet
                     color: red;
                 }
             }
-
-            .filter-component {
-                align-self: flex-end;
-                .timeline-button { // additional timeline-button properties for a button belonging to filter components
-                    &:disabled {
-                        border-color: gray;
-                        color: gray;
-                        background-color: lightgray;
-                        &:hover{
-                            cursor: default;
-                        }
-                    }
-                }
-                .filter-input {
-                    margin-right: 5px;
-                    padding: 5px;
-                }
-            }
+            
 
             &.timeline-self {
-                .timeline-button{
-                    align-self: flex-end;
+                .timeline-inputs{
+                    justify-content: flex-end;
                 }
+                
                 > .tweets-container {
                     > .tweet-block {    
                         &:nth-of-type(odd) {
