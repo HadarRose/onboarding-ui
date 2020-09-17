@@ -6,7 +6,7 @@ $timeline-page-margin: 25px;
 $timeline-margin: $timeline-separating-margin/2; // the margin each timeline should have to have correct separation
 $additional-page-margin: $timeline-page-margin - $timeline-margin; // the additional main-container margin needed to achieve the desired margin
 
-body{  // needed because of some additional imported stylesheet
+body {  // needed because of some additional imported stylesheet
     margin: 0px;
 }
 
@@ -24,34 +24,48 @@ body{  // needed because of some additional imported stylesheet
     .timelines {
         display: grid;
         grid-template-columns: 55% 45%;
-
         .timeline-container {
             margin: 0px $timeline-margin 0px;
-            display: flex;
-            flex-direction: column;
-            #timeline-button {
-                align-self: flex-end;
-                margin-bottom: 5px;
-                background-color: white;
-                border: 1px solid blue;
-                color: blue;
-                padding: 5px;
-            
-                &:hover{
-                    color: white;
-                    background-color: blue;
-                    cursor: pointer;
+            .timeline-inputs{
+                display: flex;
+                justify-content: space-between;
+                .timeline-button { 
+                    margin-bottom: 5px;
+                    background-color: white;
+                    border: 1px solid blue;
+                    color: blue;
+                    padding: 5px;
+                    &:hover {
+                        color: white;
+                        background-color: blue;
+                        cursor: pointer;
+                    }
+                }
+                .filter-component {
+                    .timeline-button { // additional timeline-button properties for a button belonging to filter components
+                        &:disabled {
+                            border-color: gray;
+                            color: gray;
+                            background-color: lightgray;
+                            &:hover{
+                                cursor: default;
+                            }
+                        }
+                    }
+                    .filter-input {
+                        margin-right: 5px;
+                        padding: 5px;
+                    }
                 }
             }
-
-            .header{
+            
+            .header {
                 text-align: center;
             }
 
             .tweets-container {
                 border: 1pt solid black;
                 margin: 5px 0px;
-        
                 &:empty{
                     display: none;
                 }
@@ -112,14 +126,19 @@ body{  // needed because of some additional imported stylesheet
                     color: red;
                 }
             }
+            
 
             &.timeline-self {
+                .timeline-inputs{
+                    justify-content: flex-end;
+                }
+                
                 > .tweets-container {
                     > .tweet-block {    
-                        &:nth-of-type(odd){
+                        &:nth-of-type(odd) {
                             background-color: #F5F8FA;
                         }
-                        &:nth-of-type(even){
+                        &:nth-of-type(even) {
                             background-color: #1DA1F2;
                         }
                     }
