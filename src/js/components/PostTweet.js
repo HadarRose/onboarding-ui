@@ -12,17 +12,16 @@ export default class PostTweet extends React.Component{
         };
     }
 
-    handleInputChange(event){
+    handleInputChange(value){
         this.setState({
-            message: event.target.value,
-            charCount: event.target.value.length
+            message: value,
+            charCount: value.length
         });
     }
 
     postTweet(){
         this.setState({
-            error: null,
-            isLoaded: false
+            error: null
         });
         postTweet(this.state.message).then(
             (response) => {
@@ -48,14 +47,14 @@ export default class PostTweet extends React.Component{
         }
     }
 
-    render(){
+    render(){ 
         return (
             <div className='post-tweet-container'>
                 <div className='post-text-area'>
                     <textarea
                         className='post-input'
                         value={this.state.message}
-                        onChange={(event) => this.handleInputChange(event)}
+                        onChange={(event) => this.handleInputChange(event.target.value)}
                         maxLength="280"
                     />
                     <div className='char-count' data-count={this.state.charCount}>
@@ -69,7 +68,7 @@ export default class PostTweet extends React.Component{
                     <button
                         className='post-button'
                         disabled={!this.state.message?.length || this.state.message == ''}
-                        onClick={() => this.postTweet()}
+                        onClick={this.postTweet.bind(this)}
                     >Post</button>
                 </div>
             </div>

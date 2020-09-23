@@ -1,4 +1,5 @@
 $font-stack: 'Times New Roman', Times, serif;
+$post-button-green: #00b300;
 
 // margin handing variables
 $timeline-separating-margin: 20px;
@@ -55,32 +56,38 @@ body {  // needed because of some additional imported stylesheet
 
     .timeline-container {
         margin: 0px $timeline-margin 0px;
+
         .timeline-inputs{
             display: flex;
             justify-content: space-between;
+
             .timeline-button { 
                 margin-bottom: 5px;
                 background-color: white;
                 border: 1px solid blue;
                 color: blue;
                 padding: 5px;
+
                 &:hover {
                     color: white;
                     background-color: blue;
                     cursor: pointer;
                 }
             }
+
             .filter-component {
                 .timeline-button { // additional timeline-button properties for a button belonging to filter components
                     &:disabled {
                         border-color: gray;
                         color: gray;
                         background-color: lightgray;
+                        
                         &:hover{
                             cursor: default;
                         }
                     }
                 }
+
                 .filter-input {
                     margin-right: 5px;
                     padding: 5px;
@@ -91,6 +98,7 @@ body {  // needed because of some additional imported stylesheet
         .tweets-container {
             border: 1pt solid black;
             margin: 5px 0px;
+            
             &:empty{
                 display: none;
             }
@@ -116,6 +124,7 @@ body {  // needed because of some additional imported stylesheet
                     text-align: center;
                     margin-right: 30px;
                     flex: 0 0 15%; /*this sets user div's width to always be 15% regardless of flexing*/
+                   
                     > .user-icon {
                         border-radius: 50%;
                         height: 65px;
@@ -137,6 +146,7 @@ body {  // needed because of some additional imported stylesheet
                         font-size: 80%;
                         padding-bottom: 5px;
                     }
+                    
                     .message-link{
                         text-decoration: none;
                         color: black;
@@ -174,10 +184,12 @@ body {  // needed because of some additional imported stylesheet
     .post-tweet-container {
         width: 75%;
         margin: auto;
+        
         .post-text-area{
             border: 1px solid black;
             background-color: white;
             padding: 5px;
+            
             .post-input{
                 width: 100%;
                 border-style: none;
@@ -187,10 +199,12 @@ body {  // needed because of some additional imported stylesheet
                 min-height: 5em;
                 resize: none;
                 font-family: $font-stack;
+                
                 &:focus{
                     outline: none;
                 }
             }
+            
             .char-count{
                 text-align: end;
                 color: #737373;
@@ -200,36 +214,43 @@ body {  // needed because of some additional imported stylesheet
 
             }
         }
+        
         .post-controls{
             display: flex;
             justify-content: flex-end;
             margin-top: 10px;
+            
             .post-button{
                 padding: 5px;
                 color: white;
-                background-color: #00b300;
-                border-style: none;
+                background-color: $post-button-green;
+                border: 1pt solid $post-button-green;
+                
                 &:hover{
                     cursor: pointer;
                     background-color: white;
-                    border: 1pt solid #00b300;
-                    color: #00b300;
+                    color: $post-button-green;
                 }
+                
                 &:disabled{
                     border: 1pt solid gray;
                     color: gray;
                     background-color: lightgray;
+                    
                     &:hover{
                         cursor: default;
                     }
                 }
             }
+            
             .report {
                 margin-right: 10px;
                 margin-top: 5px;
+                
                 &.error{
                     color: red;
                 }
+                
                 &.success{
                     color: green;
                 }
