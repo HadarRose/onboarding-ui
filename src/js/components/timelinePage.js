@@ -8,6 +8,24 @@ export default class TimelinePage extends React.Component {
         this.state = {
             activeTab: 'general'
         }
+        const TABS = {
+            general: {
+                id: 'general-timeline',
+                title: 'General Timeline',
+                component:  <Timeline key='default'/>
+            },
+            self: {
+                id: 'self-timeline',
+                title: 'User Timeline',
+                component: <Timeline type='self' key='self'/>
+            },
+            post: {
+                id: 'post-tweet',
+                title: 'Post Tweet',
+                component:  <PostTweet/> // TODO rename to component 
+            }
+        };
+        this.tabs = TABS;
     }
 
     clickTab(key){
@@ -25,36 +43,19 @@ export default class TimelinePage extends React.Component {
     }
 
     render(){  
-        const TABS = {
-            general: {
-                id: 'general-timeline',
-                title: 'General Timeline',
-                render:  <Timeline key='default'/>
-            },
-            self: {
-                id: 'self-timeline',
-                title: 'User Timeline',
-                render: <Timeline type='self' key='self'/>
-            },
-            post: {
-                id: 'post-tweet',
-                title: 'Post Tweet',
-                render:  <PostTweet/>
-            }
-        };
-
+        
         return(
             <div className="main-container">
                 <div className="title-div">Lab for Hadar</div>
                 <div className="tabs-container">
                     {
-                        Object.entries(TABS).map(([key, tab]) =>( 
+                        Object.entries(this.tabs).map(([key, tab]) =>( 
                             this.renderButton(key, tab)
                         ))
                     }
                 </div>
                 {
-                    TABS[this.state.activeTab].render
+                    this.tabs[this.state.activeTab].component
                 }
             </div>
         );
