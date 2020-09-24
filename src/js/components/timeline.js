@@ -60,9 +60,6 @@ export default class Timeline extends React.Component {
         }
         return(
             <div className={className}> 
-                <div className='header'>
-                    <h3>{this.props.title}</h3>
-                </div>
                 <div className="timeline-inputs">
                     <button className="timeline-button" 
                         onClick={() => this.getTimeline()} 
@@ -75,8 +72,4 @@ export default class Timeline extends React.Component {
             </div>
         );
     }
-}
-
-Timeline.defaultProps = {
-    title: 'General Timeline'
 }

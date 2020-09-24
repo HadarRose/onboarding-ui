@@ -1,14 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import TweetsContainer from '../src/js/components/tweetsContainer';
-import { promiseTimeline } from '../src/js/services/timelineService';
+import { getTimeline } from '../src/js/services/timelineService';
 
 jest.mock('../src/js/services/timelineService');
-promiseTimeline.mockImplementation(() => {return dummyPromise});
+getTimeline.mockImplementation(() => {return dummyPromise});
 
 var dummyPromise = new Promise(function(resolve, reject){});
-
-
 
 describe('tweetsContainer', ()=>{
     let wrapper;

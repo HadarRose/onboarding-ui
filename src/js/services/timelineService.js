@@ -41,4 +41,18 @@ import axios from 'axios';
         }
     );
  }
+
+ export function postTweet(message){
+     return axios.post(`http://localhost:8080/api/1.0/twitter/tweet`, {message: message})
+     .then(
+        (response) => {
+            console.debug("Posted tweet successfully");
+            return response;
+        },
+        (error) => {
+            console.debug("Failed to post tweet");
+            throw error;
+        }
+    );
+ }
  

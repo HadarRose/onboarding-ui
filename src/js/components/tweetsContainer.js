@@ -12,7 +12,6 @@ export default class TweetsContainer extends React.Component {
             isLoaded: false, // flags if request was loaded or not
             error: null, // error message
         };
-         
         if(this.props.type in this.TYPES){ // change type to specified type, if specified type exists
             this.serviceMethod = this.TYPES[this.props.type].serviceMethod;
             this.blockProps = this.TYPES[this.props.type].blockProps;
@@ -43,8 +42,6 @@ export default class TweetsContainer extends React.Component {
                     handle: true
                 }
             }
-            
-           
         };
     }
 
